@@ -71,3 +71,8 @@ func (s *svc) UpdateKaryawanByIDService(id int, karyawan model.Karyawan) error {
 func (s *svc) DeleteKaryawanByIDService(id int) error {
 	return s.repo.DeleteKaryawanByID(id)
 }
+
+//get all soft delete karyawan service
+func (s *svc) GetAllSoftDeleteKaryawanService() []model.Karyawan {
+	return s.repo.GetAllSoftDeleteKaryawan()
+}

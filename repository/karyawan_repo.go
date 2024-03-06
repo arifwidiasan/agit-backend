@@ -57,3 +57,12 @@ func (r *repositoryMysqlLayer) DeleteKaryawanByID(id int) error {
 	}
 	return nil
 }
+
+//get all soft delete karyawan
+func (r *repositoryMysqlLayer) GetAllSoftDeleteKaryawan() []model.Karyawan {
+	//get all karyawan
+	var karyawans []model.Karyawan
+	r.DB.Unscoped().Where("deleted_at IS NOT NULL").Find(&karyawans)
+
+	return karyawans
+}

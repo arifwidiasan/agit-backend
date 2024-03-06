@@ -43,4 +43,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.GET("/karyawans/:id", ctrl.GetKaryawanByIDController, middleware.JWT([]byte(conf.JWT_KEY)))
 	api.PUT("/karyawans/:id", ctrl.UpdateKaryawanByIDController, middleware.JWT([]byte(conf.JWT_KEY)))
 	api.DELETE("/karyawans/:id", ctrl.DeleteKaryawanByIDController, middleware.JWT([]byte(conf.JWT_KEY)))
+
+	api.GET("/karyawans/softdelete", ctrl.GetAllSoftDeleteKaryawanController, middleware.JWT([]byte(conf.JWT_KEY)))
 }

@@ -146,3 +146,23 @@ func (c *EchoController) DeleteKaryawanByIDController(e echo.Context) error {
 		"message": "success",
 	})
 }
+
+//get all soft delete karyawan controller
+func (c *EchoController) GetAllSoftDeleteKaryawanController(e echo.Context) error {
+	//check JWT token
+	user := c.Svc.ClaimToken(e.Get("user").(*jwt.Token))
+	_, err := c.Svc.GetUserByUsernameService(user)
+	if err != nil {
+		return e.JSON(http.StatusUnauthorized, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	//get all soft delete karyawan
+	karyawans := c.Svc.GetAllSoftDeleteKaryawanService()
+
+	return e.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    karyawans,
+	})
+}
