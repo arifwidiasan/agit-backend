@@ -23,7 +23,6 @@ func (s *svc) CreateKaryawanService(karyawan model.Karyawan) error {
 	//set some field
 	karyawan.Umur = helper.CalculateUmur(karyawan.TanggalLahir)
 	karyawan.UpdatedAt = nil
-	karyawan.DeletedAt = nil
 
 	//insert karyawan to repository
 	err := s.repo.CreateKaryawan(karyawan)
@@ -66,4 +65,9 @@ func (s *svc) UpdateKaryawanByIDService(id int, karyawan model.Karyawan) error {
 	}
 
 	return nil
+}
+
+//delete karyawan by id service
+func (s *svc) DeleteKaryawanByIDService(id int) error {
+	return s.repo.DeleteKaryawanByID(id)
 }

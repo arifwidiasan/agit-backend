@@ -121,3 +121,28 @@ func (c *EchoController) UpdateKaryawanByIDController(e echo.Context) error {
 		"message": "success",
 	})
 }
+
+//delete karyawan by id controller
+func (c *EchoController) DeleteKaryawanByIDController(e echo.Context) error {
+	//check JWT token
+	user := c.Svc.ClaimToken(e.Get("user").(*jwt.Token))
+	_, err := c.Svc.GetUserByUsernameService(user)
+	if err != nil {
+		return e.JSON(http.StatusUnauthorized, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	//delete karyawan by id
+	id, _ := strconv.Atoi(e.Param("id"))
+	err = c.Svc.DeleteKaryawanByIDService(id)
+	if err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	return e.JSON(http.StatusOK, map[string]string{
+		"message": "success",
+	})
+}

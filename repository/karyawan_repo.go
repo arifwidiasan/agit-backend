@@ -47,3 +47,13 @@ func (r *repositoryMysqlLayer) UpdateKaryawanByID(id int, karyawan model.Karyawa
 	}
 	return nil
 }
+
+//delete karyawan
+func (r *repositoryMysqlLayer) DeleteKaryawanByID(id int) error {
+	//delete karyawan
+	res := r.DB.Where("id = ?", id).Delete(&model.Karyawan{})
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("karyawan not found")
+	}
+	return nil
+}
