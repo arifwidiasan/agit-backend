@@ -61,3 +61,8 @@ func (s *svc) LoginUserService(username, password string) (string, int) {
 
 	return token, http.StatusOK
 }
+
+//Get user by username service
+func (s *svc) GetUserByUsernameService(username string) (model.User, error) {
+	return s.repo.GetUserByUsername(username)
+}

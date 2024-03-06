@@ -2,14 +2,28 @@ package adapter
 
 import (
 	"agit-backend/model"
+
+	"github.com/golang-jwt/jwt"
 )
 
 type AdapterRepository interface {
+	//adapter user repository
 	CreateUser(user model.User) error
 	GetUserByUsername(username string) (user model.User, err error)
+	//adapter karyawan repository
+	CreateKaryawan(karyawan model.Karyawan) error
+	GetAllKaryawan() []model.Karyawan
+	GetKaryawanByID(id int) (karyawan model.Karyawan, err error)
 }
 
 type AdapterService interface {
-	CreateUserService(user model.User) error
+	ClaimToken(bearer *jwt.Token) string
+	//adapter user service
 	LoginUserService(username, password string) (string, int)
+	CreateUserService(user model.User) error
+	GetUserByUsernameService(username string) (user model.User, err error)
+	//adapter karyawan service
+	CreateKaryawanService(karyawan model.Karyawan) error
+	GetAllKaryawanService() []model.Karyawan
+	GetKaryawanByIDService(id int) (karyawan model.Karyawan, err error)
 }
