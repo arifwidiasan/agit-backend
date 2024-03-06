@@ -166,3 +166,28 @@ func (c *EchoController) GetAllSoftDeleteKaryawanController(e echo.Context) erro
 		"data":    karyawans,
 	})
 }
+
+//restore soft delete karyawan controller
+func (c *EchoController) RestoreSoftDeleteKaryawanController(e echo.Context) error {
+	//check JWT token
+	user := c.Svc.ClaimToken(e.Get("user").(*jwt.Token))
+	_, err := c.Svc.GetUserByUsernameService(user)
+	if err != nil {
+		return e.JSON(http.StatusUnauthorized, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	//restore soft delete karyawan
+	id, _ := strconv.Atoi(e.Param("id"))
+	err = c.Svc.RestoreSoftDeleteKaryawanService(id)
+	if err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	return e.JSON(http.StatusOK, map[string]string{
+		"message": "success",
+	})
+}

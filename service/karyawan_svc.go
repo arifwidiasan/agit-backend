@@ -76,3 +76,8 @@ func (s *svc) DeleteKaryawanByIDService(id int) error {
 func (s *svc) GetAllSoftDeleteKaryawanService() []model.Karyawan {
 	return s.repo.GetAllSoftDeleteKaryawan()
 }
+
+//restore soft delete karyawan service
+func (s *svc) RestoreSoftDeleteKaryawanService(id int) error {
+	return s.repo.RestoreSoftDeleteKaryawan(id)
+}

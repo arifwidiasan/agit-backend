@@ -17,6 +17,7 @@ type AdapterRepository interface {
 	UpdateKaryawanByID(id int, karyawan model.Karyawan) error
 	DeleteKaryawanByID(id int) error
 	GetAllSoftDeleteKaryawan() []model.Karyawan
+	RestoreSoftDeleteKaryawan(id int) error
 }
 
 type AdapterService interface {
@@ -32,4 +33,5 @@ type AdapterService interface {
 	UpdateKaryawanByIDService(id int, karyawan model.Karyawan) error
 	DeleteKaryawanByIDService(id int) error
 	GetAllSoftDeleteKaryawanService() []model.Karyawan
+	RestoreSoftDeleteKaryawanService(id int) error
 }

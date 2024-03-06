@@ -66,3 +66,13 @@ func (r *repositoryMysqlLayer) GetAllSoftDeleteKaryawan() []model.Karyawan {
 
 	return karyawans
 }
+
+//restore soft delete karyawan
+func (r *repositoryMysqlLayer) RestoreSoftDeleteKaryawan(id int) error {
+	//restore karyawan
+	res := r.DB.Unscoped().Model(&model.Karyawan{}).Where("id = ?", id).Update("deleted_at", gorm.Expr("NULL"))
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("karyawan not found")
+	}
+	return nil
+}
