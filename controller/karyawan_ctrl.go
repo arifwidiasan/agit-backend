@@ -87,3 +87,37 @@ func (c *EchoController) GetKaryawanByIDController(e echo.Context) error {
 		"data":    karyawan,
 	})
 }
+
+//update karyawan by id controller
+func (c *EchoController) UpdateKaryawanByIDController(e echo.Context) error {
+	//check JWT token
+	user := c.Svc.ClaimToken(e.Get("user").(*jwt.Token))
+	_, err := c.Svc.GetUserByUsernameService(user)
+	if err != nil {
+		return e.JSON(http.StatusUnauthorized, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	//bind request body to model karyawan
+	karyawan := model.Karyawan{}
+	err = e.Bind(&karyawan)
+	if err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	//update karyawan by id
+	id, _ := strconv.Atoi(e.Param("id"))
+	err = c.Svc.UpdateKaryawanByIDService(id, karyawan)
+	if err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{
+			"message": err.Error(),
+		})
+	}
+
+	return e.JSON(http.StatusOK, map[string]string{
+		"message": "success",
+	})
+}

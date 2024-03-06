@@ -3,6 +3,7 @@ package service
 import (
 	"agit-backend/helper"
 	"agit-backend/model"
+	"time"
 
 	"fmt"
 )
@@ -44,4 +45,25 @@ func (s *svc) GetAllKaryawanService() []model.Karyawan {
 //get karyawan by id service
 func (s *svc) GetKaryawanByIDService(id int) (karyawan model.Karyawan, err error) {
 	return s.repo.GetKaryawanByID(id)
+}
+
+//update karyawan by id service
+func (s *svc) UpdateKaryawanByIDService(id int, karyawan model.Karyawan) error {
+	//check if tanggal lahir is not empty
+	if karyawan.TanggalLahir != nil {
+		//set new umur
+		karyawan.Umur = helper.CalculateUmur(karyawan.TanggalLahir)
+	}
+
+	//set updated at
+	now := time.Now()
+	karyawan.UpdatedAt = &now
+
+	//update karyawan to repository
+	err := s.repo.UpdateKaryawanByID(id, karyawan)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

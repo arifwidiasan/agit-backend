@@ -14,6 +14,7 @@ type AdapterRepository interface {
 	CreateKaryawan(karyawan model.Karyawan) error
 	GetAllKaryawan() []model.Karyawan
 	GetKaryawanByID(id int) (karyawan model.Karyawan, err error)
+	UpdateKaryawanByID(id int, karyawan model.Karyawan) error
 }
 
 type AdapterService interface {
@@ -26,4 +27,5 @@ type AdapterService interface {
 	CreateKaryawanService(karyawan model.Karyawan) error
 	GetAllKaryawanService() []model.Karyawan
 	GetKaryawanByIDService(id int) (karyawan model.Karyawan, err error)
+	UpdateKaryawanByIDService(id int, karyawan model.Karyawan) error
 }

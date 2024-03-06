@@ -41,4 +41,5 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.POST("/karyawans", ctrl.CreateKaryawanController, middleware.JWT([]byte(conf.JWT_KEY)))
 
 	api.GET("/karyawans/:id", ctrl.GetKaryawanByIDController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.PUT("/karyawans/:id", ctrl.UpdateKaryawanByIDController, middleware.JWT([]byte(conf.JWT_KEY)))
 }

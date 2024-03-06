@@ -37,3 +37,13 @@ func (r *repositoryMysqlLayer) GetKaryawanByID(id int) (karyawan model.Karyawan,
 
 	return
 }
+
+//update karyawan
+func (r *repositoryMysqlLayer) UpdateKaryawanByID(id int, karyawan model.Karyawan) error {
+	//update karyawan
+	res := r.DB.Where("id = ?", id).UpdateColumns(&karyawan)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error update karyawan")
+	}
+	return nil
+}
